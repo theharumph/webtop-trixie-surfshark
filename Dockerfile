@@ -13,13 +13,13 @@ RUN \
   echo "**** add icon ****" && \
   curl -o \
     /usr/share/selkies/www/icon.png \
-    https://raw.githubusercontent.com/theharumph/harpchecks/main/img/harpburn.png \
-  curl https://downloads.surfshark.com/linux/debian-install.sh -o surfshark-install.sh \
+    https://raw.githubusercontent.com/theharumph/harpchecks/main/img/harpburn.png && \
+  curl https://downloads.surfshark.com/linux/debian-install.sh -o surfshark-install.sh && \
   curl -f https://bitwarden.com/download/?app=desktop&platform=linux&variant=deb -o bitwarden.deb && \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
-  apt-get install -y --no-install-recommends \
+  apt install -y --no-install-recommends \
     firefox-esr \
     firefox-esr-l10n-all \
     elementary-xfce-icon-theme \
@@ -35,15 +35,15 @@ RUN \
     xfce4-terminal \
     xfconf \
     xfdesktop4 \
-    xfwm4 \
-  cat surfshark-install.sh \
-  sh surfshark-install.sh \
-  dpkg -i bitwarden.deb \ 
+    xfwm4 && \
+  cat surfshark-install.sh && \
+  sh surfshark-install.sh && \
+  dpkg -i bitwarden.deb && \ 
   apt-get install -f -y && \
   echo "**** xfce tweaks ****" && \
-  sed -i \
-    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
-    /usr/share/applications/chromium.desktop && \
+#  sed -i \
+#    's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
+#    /usr/share/applications/chromium.desktop && \
   mv \
     /usr/bin/exo-open \
     /usr/bin/exo-open-real && \
@@ -53,7 +53,7 @@ RUN \
   rm -f \
     /etc/xdg/autostart/xscreensaver.desktop && \
   echo "**** cleanup ****" && \
-  apt-get autoclean && \
+  apt autoclean && \
   rm -rf \
     /config/.cache \
     /var/lib/apt/lists/* \
