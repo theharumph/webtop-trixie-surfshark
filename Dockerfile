@@ -11,9 +11,7 @@ ENV TITLE="Debian XFCE harumph edition"
 
 RUN \
   echo "**** add icon ****" && \
-  curl -o \
-    /usr/share/selkies/www/icon.png \
-    https://raw.githubusercontent.com/theharumph/harpchecks/main/img/harpburn.png && \
+  curl https://raw.githubusercontent.com/theharumph/harpchecks/main/img/harpburn.png -o /usr/share/selkies/www/icon.png && \
   curl https://downloads.surfshark.com/linux/debian-install.sh -o surfshark-install.sh && \
   curl -f https://bitwarden.com/download/?app=desktop&platform=linux&variant=deb -o bitwarden.deb && \
   echo "**** install packages ****" && \
