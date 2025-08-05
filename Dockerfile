@@ -58,7 +58,7 @@ RUN \
     /var/tmp/* \
     /tmp/* \
     bitwarden.deb \
-    surfshark-install.sh \
+    surfshark-install.sh 
   
 
 # add local files
