@@ -4,22 +4,24 @@ FROM ghcr.io/linuxserver/baseimage-selkies:debiantrixie
 ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="thelamer"
+LABEL maintainer="thelamer and mods by harumph"
 
 # title
-ENV TITLE="Debian XFCE"
+ENV TITLE="Debian XFCE harumph edition"
 
 RUN \
   echo "**** add icon ****" && \
   curl -o \
     /usr/share/selkies/www/icon.png \
-    https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/webtop-logo.png && \
+    https://raw.githubusercontent.com/theharumph/harpchecks/main/img/harpburn.png \
+  curl https://downloads.surfshark.com/linux/debian-install.sh -o surfshark-install.sh \
+  curl -f https://bitwarden.com/download/?app=desktop&platform=linux&variant=deb -o bitwarden.deb && \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
-    chromium \
-    chromium-l10n \
+    firefox-esr \
+    firefox-esr-l10n-all \
     elementary-xfce-icon-theme \
     greybird-gtk-theme \
     libxfce4ui-utils \
@@ -33,7 +35,11 @@ RUN \
     xfce4-terminal \
     xfconf \
     xfdesktop4 \
-    xfwm4 && \
+    xfwm4 \
+  cat surfshark-install.sh \
+  sh surfshark-install.sh \
+  dpkg -i bitwarden.deb \ 
+  apt-get install -f -y && \
   echo "**** xfce tweaks ****" && \
   sed -i \
     's#^Exec=.*#Exec=/usr/local/bin/wrapped-chromium#g' \
@@ -52,7 +58,10 @@ RUN \
     /config/.cache \
     /var/lib/apt/lists/* \
     /var/tmp/* \
-    /tmp/*
+    /tmp/* \
+    bitwarden.deb \
+    surfshark-install.sh \
+  
 
 # add local files
 COPY /root /
